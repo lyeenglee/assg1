@@ -1,5 +1,7 @@
-const postList = () => {
-
+const PostList = () => {
+ //header
+ //posts
+ //pagination + add button
 }
 
-export default postList;
+export default PostList;

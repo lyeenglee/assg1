@@ -1,5 +1,7 @@
-const addPost = () => {
-
+const AddPost = () => {
+//header
+//previewCard
+//button group
 }
 
-export default addPost;
+export default AddPost;

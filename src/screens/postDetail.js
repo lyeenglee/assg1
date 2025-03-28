@@ -1,5 +1,6 @@
-const postDetail = () => {
-
+const PostDetail = () => {
+ //img field
+ //detail card
 }
 
-export default postDetail;
+export default PostDetail;
