@@ -9,9 +9,11 @@ import PostModal from "../components/modal/PostModal";
 import { useDispatch, useSelector } from "react-redux";
 import { addPost, resetPost } from "../slices/postSlice";
 import InsertPhotoIcon from "@mui/icons-material/InsertPhoto";
+import { useNavigate } from "react-router-dom";
 
 const PostList = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const { postList } = useSelector((state) => state.post);
 
   const [isModalOpen, setIsModalOpen] = React.useState(false);
@@ -23,7 +25,7 @@ const PostList = () => {
     handleCloseModal();
   };
 
-  const getPostData = async () => {
+  const getPostData = React.useCallback(async () => {
     try {
       const response = await fetch(
         "https://jsonplaceholder.typicode.com/posts"
@@ -33,20 +35,25 @@ const PostList = () => {
     } catch (error) {
       console.error("Error fetching posts:", error);
     }
-  };
+  }, [dispatch]);
 
   React.useEffect(() => {
-    console.log("PostList mounted");
-    resetPost();
+    dispatch(resetPost());
     getPostData();
-  }, []);
+  }, [dispatch, getPostData]);
 
   return (
     <div className="post-list">
       <NavBar />
       <ImageList cols={2}>
         {postList.map((item) => (
-          <ImageListItem sx={{ alignItems: "center" }} key={item.id}>
+          <ImageListItem
+            sx={{ alignItems: "center" }}
+            key={item.id}
+            onClick={() => {
+              navigate(`/postDetail/${item.id}`);
+            }}
+          >
             {item.img ? (
               <img
                 srcSet={`${item.img}?w=248&fit=crop&auto=format&dpr=3 2x`}
