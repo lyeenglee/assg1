@@ -4,7 +4,7 @@ import "../styles/styles.css"
 const Login = () => {
   return (
     <Card className="card-container">
-      <Typography variant="h1" component="h1">
+      <Typography variant="h1" component="h1" className="logo">
         Logo
       </Typography>
 

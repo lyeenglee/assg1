@@ -1,6 +1,135 @@
+import { Card, Typography } from "@mui/material";
+import InsertPhotoIcon from "@mui/icons-material/InsertPhoto";
+import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
+
+import CloseIcon from "@mui/icons-material/Close";
+
+import { useNavigate } from "react-router-dom";
+import { useState } from "react";
+import MoreActionList from "../components/list/MoreActionList";
+
+let comments = [
+  { id: 1, text: "This is a comment.", userName: "user" },
+  { id: 2, text: "This is another comment.", userName: "user1" },
+  { id: 3, text: "This is yet another comment.", userName: "User3" },
+  { id: 4, text: "This is a comment.", userName: "user" },
+  { id: 5, text: "This is another comment.", userName: "user1" },
+  { id: 6, text: "This is yet another comment.", userName: "User3" },
+  { id: 7, text: "This is a comment.", userName: "user" },
+  { id: 8, text: "This is another comment.", userName: "user1" },
+  { id: 9, text: "This is yet another comment.", userName: "User3" },
+];
+
 const PostDetail = () => {
- //img field
- //detail card
-}
+  const [showMoreAction, setShowMoreAction] = useState(false);
+  const navigate = useNavigate();
+  return (
+    <div className="post-detail-container">
+      <Card
+        sx={{
+          flexBasis: "50%",
+          marginTop: "65px",
+          marginBottom: "65px",
+          marginLeft: "104px",
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          filter: "drop-shadow(0px 4px 4px rgba(5, 14, 14, 0.25))",
+          boxSizing: "border-box",
+          backgroundColor: "rgba(203, 213, 225, 0.2)",
+        }}
+      >
+        <InsertPhotoIcon
+          sx={{ width: "100%", height: "100%", color: "gray", opacity: 0.2 }}
+        />
+      </Card>
+      <Card
+        sx={{
+          flexBasis: "50%",
+          marginTop: "65px",
+          marginBottom: "65px",
+          marginRight: "104px",
+          display: "flex",
+          flexDirection: "column",
+          filter: "drop-shadow(0px 4px 4px rgba(5, 14, 14, 0.25))",
+          boxSizing: "border-box",
+        }}
+      >
+        <div className="header-section">
+          <Typography variant="h5" component="div">
+            Title
+          </Typography>
+          <div className="moreActionGrp">
+            <MoreHorizIcon
+              sx={{ justifyContent: "center", height: "100%" }}
+              onClick={() => {
+                setShowMoreAction(!showMoreAction);
+              }}
+            />
+            <CloseIcon
+              sx={{
+                width: "25px",
+                height: "25px",
+                backgroundColor: "#d9d9d9",
+                borderRadius: 50,
+                padding: "5px",
+              }}
+              onClick={() => {
+                console.log("close icon clicked");
+                navigate("/postList");
+              }}
+            />
+          </div>
+        </div>
+
+        {showMoreAction && <MoreActionList />}
+
+        <div className="post-detail-content">
+          <Typography variant="h6" component="div">
+            Subtitle
+          </Typography>
+          <Typography variant="body1" component="div">
+            Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean
+            commodo ligula eget dolor. Aenean massa. Cum sociis.Excepteur
+            efficient emerging, minim veniam anim aute carefully curated Ginza
+            conversation exquisite perfect nostrud nisi intricate Content. Qui
+            international first-class nulla ut. Punctual adipisicing, essential
+            lovely queen tempor eiusmod irure. Exclusive izakaya charming
+            Scandinavian impeccable aute quality of life soft power pariatur
+            Melbourne occaecat discerning. Qui wardrobe aliquip, et Porter
+            destination Toto remarkable officia Helsinki excepteur Basset hound.
+            Zürich sleepy perfect consectetur.
+          </Typography>
+
+          <div className="comments-section">
+            <Typography variant="h6" component="div">
+              Comments
+            </Typography>
+            <div className="comments-list">
+              {comments.map((comment) => (
+                <div key={comment.id} className="comment-item">
+                  <Typography
+                    variant="body2"
+                    component="div"
+                    style={{ width: "30%" }}
+                  >
+                    {comment.userName}
+                  </Typography>
+                  <Typography
+                    variant="body2"
+                    component="div"
+                    style={{ width: "70%" }}
+                  >
+                    {comment.text}
+                  </Typography>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </Card>
+    </div>
+  );
+};
 
 export default PostDetail;

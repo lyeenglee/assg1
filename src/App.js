@@ -1,11 +1,19 @@
-import './App.css';
-import Login from './screens/Login';
-
+import "./App.css";
+import Login from "./screens/Login";
+import PostDetail from "./screens/PostDetail";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import PostList from "./screens/PostList";
 
 function App() {
   return (
     <div className="App">
-    <Login/>
+      <Router>
+        <Routes>
+          <Route path="/" element={<Login />} />
+          <Route path="/postList" element={<PostList />} />
+          <Route path="/postDetail" element={<PostDetail />} />
+        </Routes>
+      </Router>
     </div>
   );
 }

@@ -1,32 +1,136 @@
 .card-container {
-    background-color: "#D9D9D9";
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex: 1;
-    height: 100vh; 
-    flex-direction: column;
-    
+  background-color: #d9d9d9;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: 1;
+  height: 100vh;
+  flex-direction: column;
 }
 
-.formCard{
-    background-color: white;
-    justify-content: space-around;
-    display: flex;
-    flex-direction: column;
+.formCard {
+  background-color: white;
+  justify-content: space-around;
+  display: flex;
+  flex-direction: column;
 }
 
-.text-input{
-    width: 457px;
-    height: 40;
-    margin: 12px;
+.text-input {
+  width: 457px;
+  height: 40;
+  margin: 12px;
 }
 
-.login-btn{
- background-color: black;
- color: white;   
+.login-btn {
+  background-color: black;
+  color: white;
 }
 
-.rmb-pwd-link{
-    color: white;
+.rmb-pwd-link {
+  color: white;
+}
+
+.logo {
+  color: #670c0c;
+}
+
+.post-detail-container {
+  background-color: #d9d9d9;
+  display: flex;
+  align-items: stretch;
+  /*   justify-content: space-around; */
+  gap: 50px;
+  flex: 1;
+  height: 100vh;
+  flex-direction: row;
+}
+
+.post-detail {
+  background-color: white;
+  /*   justify-content: space-around; */
+  display: flex;
+  flex-direction: column;
+  width: 50%;
+  padding-top: 30px;
+  padding-right: 20px;
+}
+
+.post-img {
+  /*  width: 600px;
+    height: 640px; */
+  object-fit: cover;
+  margin-top: 65px;
+  margin-bottom: 65px;
+  margin-left: 104px;
+  display: "flex";
+  justify-content: "center";
+  align-items: "center";
+  background-color: "red";
+  filter: drop-shadow(0px 4px 4px rgba(5, 14, 14, 2, 0.25));
+}
+
+.moreActionGrp {
+  display: flex;
+  justify-content: end;
+  gap: 10px;
+  align-items: "center";
+  top: "30px";
+  height: "fit-content";
+}
+
+.post-detail-content {
+  text-align: left;
+  padding-left: 35px;
+  padding-right: 35px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  align-items: flex-start;
+  justify-content: flex-start;
+  overflow-y: auto;
+  margin-bottom: 35px;
+}
+
+.comments-list {
+  display: flex;
+  flex-direction: column;
+}
+
+.comment-item {
+  display: flex;
+  flex-direction: row;
+}
+
+.header-section {
+  display: flex;
+  flex-direction: row;
+  height: fit-content;
+  justify-content: space-between;
+  margin: 20px;
+  padding-left: 15px;
+}
+
+.action-list {
+  display: flex;
+  position: absolute;
+  top: 55px;
+  right: 55px;
+}
+
+/*   Post List   */
+.post-list {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.pagination {
+  margin: 30px;
+}
+
+.fab-style {
+  position: "absolute";
+  bottom: 16;
+  right: 16;
 }
