@@ -45,10 +45,24 @@ const PostList = () => {
   return (
     <div className="post-list">
       <NavBar />
-      <ImageList cols={2}>
-        {postList.map((item) => (
+      <ImageList
+        sx={{
+          backgroundColor: "#ffffff",
+          top: "70px",
+          marginTop: "100px",
+          display: "flex",
+          flexWrap: "wrap",
+          justifyContent: "center",
+        }}
+      >
+        {postList.map((item, idx) => (
           <ImageListItem
-            sx={{ alignItems: "center" }}
+            sx={{
+              alignItems: "center",
+              display: "flex",
+              margin: "10px",
+              backgroundColor: "rgba(203, 213, 225, 0.2)",
+            }}
             key={item.id}
             onClick={() => {
               navigate(`/postDetail/${item.id}`);
@@ -60,11 +74,30 @@ const PostList = () => {
                 src={`${item.img}?w=248&fit=crop&auto=format`}
                 alt={item.title}
                 loading="lazy"
+                style={{
+                  width: "280px",
+                  height: "280px",
+                  color: "gray",
+                  opacity: 0.2,
+                }}
               />
             ) : (
-              <InsertPhotoIcon />
+              <InsertPhotoIcon
+                sx={{
+                  color: "gray",
+                  opacity: 0.2,
+                  width: "280px",
+                  height: "280px",
+                  borderRadius: "20px",
+                  zIndex: 4,
+                }}
+              />
             )}
-            <ImageListItemBar title={item.title} position="below" />
+            <ImageListItemBar
+              title={item.title}
+              position="below"
+              sx={{ width: "280px", marginLeft: "15px", marginRight: "15px" }}
+            />
           </ImageListItem>
         ))}
       </ImageList>

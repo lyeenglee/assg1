@@ -1,4 +1,4 @@
-import { Card, Typography } from "@mui/material";
+import { Avatar, Card, Typography } from "@mui/material";
 import InsertPhotoIcon from "@mui/icons-material/InsertPhoto";
 import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
 
@@ -79,7 +79,7 @@ const PostDetail = () => {
         }}
       >
         <div className="header-section">
-          <Typography variant="h5" component="div">
+          <Typography variant="h5" component="div" sx={{ textAlign: "left" }}>
             {detail.title}
           </Typography>
           <div className="moreActionGrp">
@@ -98,7 +98,6 @@ const PostDetail = () => {
                 padding: "5px",
               }}
               onClick={() => {
-                console.log("close icon clicked");
                 navigate("/postList");
               }}
             />
@@ -108,20 +107,7 @@ const PostDetail = () => {
         {showMoreAction && <MoreActionList />}
 
         <div className="post-detail-content">
-          {/*  <Typography variant="h6" component="div">
-            Subtitle
-          </Typography> */}
           <Typography variant="body1" component="div">
-            {/*  Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean
-            commodo ligula eget dolor. Aenean massa. Cum sociis.Excepteur
-            efficient emerging, minim veniam anim aute carefully curated Ginza
-            conversation exquisite perfect nostrud nisi intricate Content. Qui
-            international first-class nulla ut. Punctual adipisicing, essential
-            lovely queen tempor eiusmod irure. Exclusive izakaya charming
-            Scandinavian impeccable aute quality of life soft power pariatur
-            Melbourne occaecat discerning. Qui wardrobe aliquip, et Porter
-            destination Toto remarkable officia Helsinki excepteur Basset hound.
-            Zürich sleepy perfect consectetur. */}
             {detail.body}
           </Typography>
 
@@ -130,15 +116,54 @@ const PostDetail = () => {
               Comments
             </Typography>
             <div className="comments-list">
-              {comments.map((comment) => (
+              {comments.map((comment, idx) => (
                 <div key={comment.id} className="comment-item">
-                  <Typography
-                    variant="body2"
-                    component="div"
-                    style={{ width: "30%" }}
+                  <div
+                    style={{
+                      display: "flex",
+                      flexDirection: "column",
+                      alignItems: "flex-start",
+                      justifyContent: "flex-start",
+                      width: "30%",
+                    }}
                   >
-                    {comment.name} - {comment.email}
-                  </Typography>
+                    <div
+                      style={{
+                        display: "flex",
+                        flexDirection: "row",
+                        gap: "10px",
+                        alignItems: "center",
+                        justifyContent: "center",
+                      }}
+                    >
+                      <Avatar
+                        sx={{
+                          backgroundColor: "rgba(0, 0, 0, 0.5)",
+                        }}
+                      ></Avatar>
+                      <div
+                        style={{
+                          wordWrap: "break-word",
+                          whiteSpace: "normal",
+                        }}
+                      >
+                        <Typography variant="subtitle" component="div">
+                          {comment.name}
+                        </Typography>
+
+                        <Typography
+                          variant="caption"
+                          component="div"
+                          style={{
+                            fontStyle: "italic",
+                          }}
+                        >
+                          {comment.email}
+                        </Typography>
+                      </div>
+                    </div>
+                  </div>
+
                   <Typography
                     variant="body2"
                     component="div"

@@ -99,6 +99,7 @@
 .comment-item {
   display: flex;
   flex-direction: row;
+  margin-bottom: 15px;
 }
 
 .header-section {
@@ -126,7 +127,7 @@
 }
 
 .pagination {
-  margin: 30px;
+  margin: 25px;
 }
 
 .fab-style {
