@@ -8,6 +8,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import React, { useEffect, useState } from "react";
 import MoreActionList from "../components/list/MoreActionList";
 import { resetPost } from "../slices/postSlice";
+import { useSelector } from "react-redux";
 
 const PostDetail = () => {
   const [showMoreAction, setShowMoreAction] = useState(false);
@@ -15,17 +16,7 @@ const PostDetail = () => {
   const { id } = useParams();
   const [detail, setDetail] = useState({});
   const [comments, setComments] = useState([]);
-  const getPostDetail = async () => {
-    try {
-      const response = await fetch(
-        `https://jsonplaceholder.typicode.com/posts/${id}`
-      );
-      const data = await response.json();
-      setDetail(data);
-    } catch (error) {
-      console.error("Error fetching posts:", error);
-    }
-  };
+  const { postList } = useSelector((state) => state.post);
 
   const getComments = async () => {
     try {
@@ -40,11 +31,13 @@ const PostDetail = () => {
   };
 
   React.useEffect(() => {
-    console.log("PostList mounted");
-    resetPost();
-    getPostDetail(id);
     getComments(id);
   }, []);
+
+  React.useEffect(() => {
+    setDetail(postList.find((post) => post.id === Number(id)));
+    setShowMoreAction(false);
+  }, [postList]);
 
   return (
     <div className="post-detail-container">
@@ -79,8 +72,8 @@ const PostDetail = () => {
         }}
       >
         <div className="header-section">
-          <Typography variant="h5" component="div" sx={{ textAlign: "left" }}>
-            {detail.title}
+          <Typography variant="h5" component="div">
+            {detail?.title}
           </Typography>
           <div className="moreActionGrp">
             <MoreHorizIcon
@@ -104,11 +97,11 @@ const PostDetail = () => {
           </div>
         </div>
 
-        {showMoreAction && <MoreActionList />}
+        {showMoreAction && <MoreActionList id={id} />}
 
         <div className="post-detail-content">
           <Typography variant="body1" component="div">
-            {detail.body}
+            {detail?.body}
           </Typography>
 
           <div className="comments-section">

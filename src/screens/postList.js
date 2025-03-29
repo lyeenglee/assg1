@@ -38,9 +38,12 @@ const PostList = () => {
   }, [dispatch]);
 
   React.useEffect(() => {
+    if (postList.length > 0) {
+      return;
+    }
     dispatch(resetPost());
     getPostData();
-  }, [dispatch, getPostData]);
+  }, [dispatch, getPostData, postList.length]);
 
   return (
     <div className="post-list">
@@ -117,9 +120,10 @@ const PostList = () => {
       </Fab>
 
       <PostModal
+        header={"Add Post"}
         isModalOpen={isModalOpen}
         handleCloseModal={handleCloseModal}
-        handleAddPost={handleAddPost}
+        handleSubmit={handleAddPost}
       />
     </div>
   );

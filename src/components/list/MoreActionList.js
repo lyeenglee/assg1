@@ -8,8 +8,34 @@ import {
 } from "@mui/material";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
+import { useDispatch } from "react-redux";
+import { deletePost, editPost } from "../../slices/postSlice";
+import { useNavigate } from "react-router-dom";
+import React from "react";
+import PostModal from "../modal/PostModal";
 
-const MoreActionList = () => {
+const MoreActionList = ({ id }) => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const [isModalOpen, setIsModalOpen] = React.useState(false);
+  const handleCloseModal = () => setIsModalOpen(false);
+  const handleOpenModal = () => setIsModalOpen(true);
+
+  const onClickDelete = () => {
+    dispatch(deletePost(id));
+    navigate("/postList");
+  };
+
+  const onClickEdit = () => {
+    handleOpenModal();
+  };
+
+  const handleEditPost = (post) => {
+    dispatch(editPost(post));
+    handleCloseModal();
+  };
+
   return (
     <div className="action-list">
       <Box sx={{ width: "100%", maxWidth: 360, bgcolor: "background.paper" }}>
@@ -21,7 +47,7 @@ const MoreActionList = () => {
             }}
           >
             <ListItem disablePadding>
-              <ListItemButton>
+              <ListItemButton onClick={onClickEdit}>
                 <ListItemIcon>
                   <EditIcon />
                 </ListItemIcon>
@@ -29,7 +55,7 @@ const MoreActionList = () => {
               </ListItemButton>
             </ListItem>
             <ListItem disablePadding>
-              <ListItemButton>
+              <ListItemButton onClick={onClickDelete}>
                 <ListItemIcon>
                   <DeleteIcon />
                 </ListItemIcon>
@@ -39,6 +65,13 @@ const MoreActionList = () => {
           </List>
         </nav>
       </Box>
+      <PostModal
+        header={"Edit Post"}
+        isModalOpen={isModalOpen}
+        handleCloseModal={handleCloseModal}
+        handleSubmit={handleEditPost}
+        postId={id}
+      />
     </div>
   );
 };
