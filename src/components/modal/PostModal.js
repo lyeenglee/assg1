@@ -128,13 +128,12 @@ const PostModal = ({ isModalOpen, handleCloseModal, handleAddPost }) => {
               <Card
                 style={{
                   display: "flex",
-                  // flex: 1,
+                  flex: 1,
                   flexDirection: "column",
                   justifyContent: "flex-start",
                   alignItems: "flex-start",
                   boxSizing: "border-box",
                   padding: "20px",
-                  //     height: "70%",
                 }}
               >
                 <div style={{ textAlign: "left", marginBottom: "20px" }}>
@@ -153,7 +152,8 @@ const PostModal = ({ isModalOpen, handleCloseModal, handleAddPost }) => {
                     textAlign: "left",
                     marginBottom: "20px",
                     overflowY: "scroll",
-                    height: "55%",
+                    height: "250px",
+                    minHeight: "fit-content",
                     maxHeight: "250px",
                   }}
                 >
@@ -226,6 +226,20 @@ const PostModal = ({ isModalOpen, handleCloseModal, handleAddPost }) => {
                     </div>
                   ))}
                 </div>
+
+                <Button
+                  onClick={() => {}}
+                  sx={{
+                    width: 80,
+                    bgcolor: "blue",
+                    display: "flex",
+                    gap: "10px",
+                    justifyContent: "flex-end",
+                  }}
+                  variant="contained"
+                >
+                  New Comment        
+                </Button>
               </Card>
             </div>
             <div className="modal-buttons">
