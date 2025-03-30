@@ -109,7 +109,7 @@ const PostModal = ({
                 fontFamily: "Poppins, sans-serif",
                 fontWeight: "bold",
               }}
-              variant="h6"
+              variant="subtitle1"
             >
               {header}
             </Typography>
@@ -167,6 +167,9 @@ const PostModal = ({
                         color: "black",
                       },
                       width: "100%",
+                      fontWeight: "bold",
+                      fontSize: "20px",
+                      fontFamily: "Poppins, sans-serif",
                     }}
                   />
                 </div>
@@ -182,7 +185,15 @@ const PostModal = ({
                     flex: 1,
                   }}
                 >
-                  <InputLabel htmlFor="description">Description</InputLabel>
+                  <Typography
+                    variant="subtitle1"
+                    component="div"
+                    sx={{
+                      fontFamily: "Poppins, sans-serif",
+                    }}
+                  >
+                    Description
+                  </Typography>
                   <TextareaAutosize
                     onChange={(e) => setBody(e.target.value)}
                     id="description"
@@ -196,9 +207,12 @@ const PostModal = ({
                   />
 
                   <Typography
-                    variant="h6"
+                    variant="subtitle1"
                     component="div"
-                    sx={{ paddingTop: "10px" }}
+                    sx={{
+                      paddingTop: "10px",
+                      fontFamily: "Poppins, sans-serif",
+                    }}
                   >
                     Comments
                   </Typography>
@@ -265,15 +279,7 @@ const PostModal = ({
                       </>
                     ))
                   ) : (
-                    <>
-                      <InputLabel
-                        htmlFor="description"
-                        style={{ textAlign: "left" }}
-                      >
-                        Comments
-                      </InputLabel>
-                      <p>No comments available</p>
-                    </>
+                    <p>No comments available</p>
                   )}
                 </div>
                 {showComment && (

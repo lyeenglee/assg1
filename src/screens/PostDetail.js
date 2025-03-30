@@ -65,8 +65,8 @@ const PostDetail = () => {
             alt="Random"
             loading="lazy"
             style={{
-              width: "100%",
-              height: "100%",
+              width: "320px",
+              height: "320px",
               borderRadius: "15px",
             }}
           />
@@ -130,46 +130,50 @@ const PostDetail = () => {
               Comments
             </Typography>
             <div className="comments-list">
-              {commentList.map((comment, idx) => (
-                <div key={comment.id} className="comment-item">
-                  <div className="comment-item1">
-                    <div className="post-detail-item2">
-                      <Avatar
-                        sx={{
-                          backgroundColor: "rgba(0, 0, 0, 0.5)",
-                        }}
-                      ></Avatar>
-                      <div className="user-detail">
-                        <Typography
-                          variant="subtitle"
-                          component="div"
-                          sx={{ fontWeight: 500 }}
-                        >
-                          {comment.name}
-                        </Typography>
-
-                        <Typography
-                          variant="caption"
-                          component="div"
-                          style={{
-                            fontStyle: "italic",
+              {commentList.length > 0 ? (
+                commentList.map((comment, idx) => (
+                  <div key={comment.id} className="comment-item">
+                    <div className="comment-item1">
+                      <div className="post-detail-item2">
+                        <Avatar
+                          sx={{
+                            backgroundColor: "rgba(0, 0, 0, 0.5)",
                           }}
-                        >
-                          {comment.email}
-                        </Typography>
+                        ></Avatar>
+                        <div className="user-detail">
+                          <Typography
+                            variant="subtitle"
+                            component="div"
+                            sx={{ fontWeight: 500 }}
+                          >
+                            {comment.name}
+                          </Typography>
+
+                          <Typography
+                            variant="caption"
+                            component="div"
+                            style={{
+                              fontStyle: "italic",
+                            }}
+                          >
+                            {comment.email}
+                          </Typography>
+                        </div>
                       </div>
                     </div>
-                  </div>
 
-                  <Typography
-                    variant="body2"
-                    component="div"
-                    sx={{ paddingTop: "5px" }}
-                  >
-                    {comment.body}
-                  </Typography>
-                </div>
-              ))}
+                    <Typography
+                      variant="body2"
+                      component="div"
+                      sx={{ paddingTop: "5px" }}
+                    >
+                      {comment.body}
+                    </Typography>
+                  </div>
+                ))
+              ) : (
+                <p>No comments available</p>
+              )}
             </div>
           </div>
         </div>
