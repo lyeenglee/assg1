@@ -1,4 +1,5 @@
-.card-container {
+/*   Login   */
+.login-container {
   background-color: #d9d9d9;
   display: flex;
   align-items: center;
@@ -6,16 +7,18 @@
   flex: 1;
   height: 100vh;
   flex-direction: column;
+  gap: 40px;
 }
 
-.formCard {
+.login-form-container {
   background-color: white;
   justify-content: space-around;
   display: flex;
   flex-direction: column;
+  gap: 20px;
 }
 
-.text-input {
+.login-text-input {
   width: 457px;
   height: 40;
   margin: 12px;
@@ -23,10 +26,6 @@
 
 .login-btn {
   background-color: black;
-  color: white;
-}
-
-.rmb-pwd-link {
   color: white;
 }
 
@@ -99,6 +98,8 @@
   display: flex;
   flex-direction: row;
   margin-bottom: 15px;
+  align-items: space-between;
+  justify-content: space-between;
 }
 
 .header-section {
@@ -143,7 +144,6 @@
 }
 
 .modal-container {
-  /*  height: 80%; */
   display: flex;
   flex-direction: column;
   justify-content: center;

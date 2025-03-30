@@ -1,11 +1,13 @@
 import { Card, Typography } from "@mui/material";
 import LoginForm from "../components/form/loginForm";
-import "../styles/styles.css"
+import "../styles/styles.css";
+import { LOGO } from "../constants/string";
+
 const Login = () => {
   return (
-    <Card className="card-container">
+    <Card className="login-container">
       <Typography variant="h1" component="h1" className="logo">
-        Logo
+        {LOGO}
       </Typography>
 
       <LoginForm />

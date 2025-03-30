@@ -9,7 +9,12 @@ import {
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { useDispatch } from "react-redux";
-import { deletePost, editPost } from "../../slices/postSlice";
+import {
+  addComment,
+  deletePost,
+  editPost,
+  resetComment,
+} from "../../slices/postSlice";
 import { useNavigate } from "react-router-dom";
 import React from "react";
 import PostModal from "../modal/PostModal";
@@ -31,8 +36,12 @@ const MoreActionList = ({ id }) => {
     handleOpenModal();
   };
 
-  const handleEditPost = (post) => {
+  const handleEditPost = ({ post, comment }) => {
     dispatch(editPost(post));
+    if (comment) {
+      dispatch(resetComment());
+      dispatch(addComment(comment));
+    }
     handleCloseModal();
   };
 

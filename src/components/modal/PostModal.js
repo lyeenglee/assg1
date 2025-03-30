@@ -10,68 +10,60 @@ import {
 } from "@mui/material";
 import InsertPhotoIcon from "@mui/icons-material/InsertPhoto";
 import React from "react";
+import { useSelector } from "react-redux";
 
-const PostModal = ({ isModalOpen, handleCloseModal, handleAddPost }) => {
-  const [title, setTitle] = React.useState("");
-  const [body, setBody] = React.useState("");
+const PostModal = ({
+  header,
+  isModalOpen,
+  handleCloseModal,
+  handleSubmit,
+  postId,
+}) => {
+  const { user, isAdmin } = useSelector((state) => state.user);
+  const { postList, commentList } = useSelector((state) => state.post);
+  const post = postList.find((post) => post.id === Number(postId));
+
+  const [title, setTitle] = React.useState(post ? post.title : "");
+  const [body, setBody] = React.useState(post ? post.body : "");
+  const [comments, setComments] = React.useState(commentList || []);
 
   const onClickPost = () => {
-    handleAddPost({ title, body });
+    handleSubmit({
+      post: { title, body, id: Number(postId) },
+      comment: comments,
+    });
     setTitle("");
     setBody("");
+    setComments([]);
   };
 
-  let comments = [
-    {
-      postId: 1,
-      id: 1,
-      name: "id labore ex et quam laborum",
-      email: "Eliseo@gardner.biz",
-      body: "laudantium enim quasi est quidem magnam voluptate ipsam eos\ntempora quo necessitatibus\ndolor quam autem quasi\nreiciendis et nam sapiente accusantium",
-    },
-    {
-      postId: 1,
-      id: 2,
-      name: "quo vero reiciendis velit similique earum",
-      email: "Jayne_Kuhic@sydney.com",
-      body: "est natus enim nihil est dolore omnis voluptatem numquam\net omnis occaecati quod ullam at\nvoluptatem error expedita pariatur\nnihil sint nostrum voluptatem reiciendis et",
-    },
-    {
-      postId: 1,
-      id: 3,
-      name: "odio adipisci rerum aut animi",
-      email: "Nikita@garfield.biz",
-      body: "quia molestiae reprehenderit quasi aspernatur\naut expedita occaecati aliquam eveniet laudantium\nomnis quibusdam delectus saepe quia accusamus maiores nam est\ncum et ducimus et vero voluptates excepturi deleniti ratione",
-    },
-    {
-      postId: 1,
-      id: 4,
-      name: "alias odio sit",
-      email: "Lew@alysha.tv",
-      body: "non et atque\noccaecati deserunt quas accusantium unde odit nobis qui voluptatem\nquia voluptas consequuntur itaque dolor\net qui rerum deleniti ut occaecati",
-    },
-    {
-      postId: 1,
-      id: 5,
-      name: "vero eaque aliquid doloribus et culpa",
-      email: "Hayden@althea.biz",
-      body: "harum non quasi et ratione\ntempore iure ex voluptates in ratione\nharum architecto fugit inventore cupiditate\nvoluptates magni quo et",
-    },
-    {
-      postId: 1,
-      id: 5,
-      name: "vero eaque aliquid doloribus et culpa",
-      email: "Hayden@althea.biz",
-      body: "harum non quasi et ratione\ntempore iure ex voluptates in ratione\nharum architecto fugit inventore cupiditate\nvoluptates magni quo et",
-    },
-    {
-      postId: 1,
-      id: 5,
-      name: "vero eaque aliquid doloribus et culpa",
-      email: "Hayden@althea.biz",
-      body: "harum non quasi et ratione\ntempore iure ex voluptates in ratione\nharum architecto fugit inventore cupiditate\nvoluptates magni quo et",
-    },
-  ];
+  const handleCommentChange = (index, value) => {
+    setComments((prevComments) => {
+      const newComments = [...prevComments];
+      newComments[index] = { ...newComments[index], body: value };
+      return newComments;
+    });
+  };
+
+  const handleNewComment = () => {
+    setComments((prevComments) => [
+      ...prevComments,
+      {
+        name: user.username,
+        email: user.email,
+        body: "",
+        id: comments.length + 1,
+      },
+    ]);
+  };
+
+  const handleDeleteComment = (index) => {
+    setComments((prevComments) => {
+      const newComments = [...prevComments];
+      newComments.splice(index, 1);
+      return newComments;
+    });
+  };
 
   return (
     <Modal
@@ -96,7 +88,6 @@ const PostModal = ({ isModalOpen, handleCloseModal, handleAddPost }) => {
             boxShadow: 24,
             textAlign: "center",
             width: "65%",
-            height: "70%",
           }}
         >
           <div className="modal-container">
@@ -109,9 +100,9 @@ const PostModal = ({ isModalOpen, handleCloseModal, handleAddPost }) => {
               }}
               variant="h6"
             >
-              Add Post
+              {header}
             </Typography>
-            <div className="post-detail-container">
+            <div className="modal-img-container">
               <Card
                 style={{
                   display: "flex",
@@ -147,7 +138,6 @@ const PostModal = ({ isModalOpen, handleCloseModal, handleAddPost }) => {
 
                 <div
                   style={{
-                    backgroundColor: "pink",
                     width: "100%",
                     textAlign: "left",
                     marginBottom: "20px",
@@ -167,18 +157,20 @@ const PostModal = ({ isModalOpen, handleCloseModal, handleAddPost }) => {
                     value={body}
                   />
 
-                  {comments.map((comment, idx) => (
+                  {comments.map((comment, i) => (
                     <div
                       key={comment.id}
                       style={{
-                        backgroundColor: "lightblue",
+                        // backgroundColor: "lightblue",
                         marginBottom: "20px",
+                        gap: "20px",
                       }}
                     >
                       <div
                         style={{
                           wordWrap: "break-word",
                           whiteSpace: "normal",
+                          outline: "1px solid black",
                         }}
                       >
                         <InputLabel
@@ -193,6 +185,7 @@ const PostModal = ({ isModalOpen, handleCloseModal, handleAddPost }) => {
                           value={comment.name}
                           style={{ marginBottom: "10px" }}
                           fullWidth
+                          disabled={true}
                         />
                         <InputLabel
                           htmlFor="description"
@@ -206,6 +199,7 @@ const PostModal = ({ isModalOpen, handleCloseModal, handleAddPost }) => {
                           value={comment.email}
                           fullWidth
                           style={{ marginBottom: "10px" }}
+                          disabled={true}
                         />
                         <InputLabel
                           htmlFor="description"
@@ -214,29 +208,34 @@ const PostModal = ({ isModalOpen, handleCloseModal, handleAddPost }) => {
                           Comment
                         </InputLabel>
                         <Input
-                          id="title"
+                          onChange={(e) =>
+                            handleCommentChange(i, e.target.value)
+                          }
+                          id="comments"
                           placeholder="Comment"
-                          value={comment.body}
+                          value={comment?.body || ""}
                           fullWidth
                           style={{ marginBottom: "10px" }}
                         />
+                        {isAdmin && (
+                          <Button
+                            onClick={() => handleDeleteComment(i)}
+                            sx={{ width: 80, height: 30, marginBottom: "10px" }}
+                            variant="contained"
+                          >
+                            Delete
+                          </Button>
+                        )}
                       </div>
                     </div>
                   ))}
                 </div>
-
                 <Button
-                  onClick={() => {}}
-                  sx={{
-                    width: 80,
-                    bgcolor: "blue",
-                    display: "flex",
-                    gap: "10px",
-                    justifyContent: "flex-end",
-                  }}
+                  onClick={handleNewComment}
+                  sx={{ width: 150, height: 30 }}
                   variant="contained"
                 >
-                  New Comment        
+                  New Comment
                 </Button>
               </Card>
             </div>

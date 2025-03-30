@@ -21,7 +21,7 @@ const PostList = () => {
   const handleOpenModal = () => setIsModalOpen(true);
   console.log("imgList: ", imgList);
   const handleAddPost = (post) => {
-    dispatch(addPost([post]));
+    dispatch(addPost([{ ...post, id: postList.length + 1 }]));
     handleCloseModal();
   };
 

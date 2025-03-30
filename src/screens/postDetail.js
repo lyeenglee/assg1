@@ -7,16 +7,19 @@ import CloseIcon from "@mui/icons-material/Close";
 import { useNavigate, useParams } from "react-router-dom";
 import React, { useEffect, useState } from "react";
 import MoreActionList from "../components/list/MoreActionList";
-import { resetPost } from "../slices/postSlice";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { addComment, resetComment } from "../slices/postSlice";
 
 const PostDetail = () => {
-  const [showMoreAction, setShowMoreAction] = useState(false);
-  const navigate = useNavigate();
   const { id } = useParams();
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const [showMoreAction, setShowMoreAction] = useState(false);
   const [detail, setDetail] = useState({});
-  const [comments, setComments] = useState([]);
-  const { postList } = useSelector((state) => state.post);
+
+  const { user } = useSelector((state) => state.user);
+  const { postList, commentList } = useSelector((state) => state.post);
 
   const getComments = async () => {
     try {
@@ -24,15 +27,21 @@ const PostDetail = () => {
         `https://jsonplaceholder.typicode.com/posts/${id}/comments`
       );
       const data = await response.json();
-      setComments(data);
+      dispatch(addComment(data));
     } catch (error) {
       console.error("Error fetching posts:", error);
     }
   };
 
-  React.useEffect(() => {
+  useEffect(() => {
+    dispatch(resetComment());
     getComments(id);
-  }, []);
+  }, [id]);
+
+  useEffect(() => {
+    setDetail(postList.find((post) => post.id === Number(id)));
+    setShowMoreAction(false);
+  }, [postList]);
 
   React.useEffect(() => {
     setDetail(postList.find((post) => post.id === Number(id)));
@@ -77,12 +86,15 @@ const PostDetail = () => {
             {detail?.title}
           </Typography>
           <div className="moreActionGrp">
-            <MoreHorizIcon
-              sx={{ justifyContent: "center", height: "100%" }}
-              onClick={() => {
-                setShowMoreAction(!showMoreAction);
-              }}
-            />
+            {Object.keys(user).length !== 0 && (
+              <MoreHorizIcon
+                sx={{ justifyContent: "center", height: "100%" }}
+                onClick={() => {
+                  setShowMoreAction(!showMoreAction);
+                }}
+              />
+            )}
+
             <CloseIcon
               sx={{
                 width: "25px",
@@ -110,7 +122,7 @@ const PostDetail = () => {
               Comments
             </Typography>
             <div className="comments-list">
-              {comments.map((comment, idx) => (
+              {commentList.map((comment, idx) => (
                 <div key={comment.id} className="comment-item">
                   <div
                     style={{

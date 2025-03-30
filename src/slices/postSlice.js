@@ -4,6 +4,7 @@ const postSlice = createSlice({
   name: "post",
   initialState: {
     postList: [],
+    commentList: [],
   },
   reducers: {
     addPost: (state, action) => {
@@ -24,8 +25,36 @@ const postSlice = createSlice({
     resetPost: (state) => {
       state.postList = [];
     },
+    addComment: (state, action) => {
+      state.commentList.push(...action.payload);
+    },
+    deleteComment: (state, action) => {
+      state.commentList = state.commentList.filter(
+        (comment) => comment.id !== Number(action.payload)
+      );
+    },
+    editComment: (state, action) => {
+      state.commentList = state.commentList.map((comment) =>
+        comment.id === Number(action.payload.id)
+          ? { ...comment, ...action.payload }
+          : comment
+      );
+    },
+    resetComment: (state) => {
+      state.commentList = [];
+    },
   },
 });
 
-export const { addPost, deletePost, editPost, resetPost } = postSlice.actions;
+export const {
+  addPost,
+  deletePost,
+  editPost,
+  resetPost,
+  addComment,
+  deleteComment,
+  editComment,
+  resetComment,
+} = postSlice.actions;
+
 export default postSlice.reducer;
