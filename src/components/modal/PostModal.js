@@ -141,9 +141,8 @@ const PostModal = ({
                     width: "100%",
                     textAlign: "left",
                     marginBottom: "20px",
-                    overflowY: "scroll",
-                    //  minHeight: "200px",
-                    minHeight: "calc(10vh + 100px)",
+                    overflowY: "auto",
+                    minHeight: "calc(100% - (18vh))",
                     maxHeight: "calc(-200px + 60vh)",
                     flex: 1,
                   }}
@@ -152,83 +151,122 @@ const PostModal = ({
                   <TextareaAutosize
                     onChange={(e) => setBody(e.target.value)}
                     id="description"
-                    style={{ width: "100%", height: "150px", resize: "none" }}
+                    style={{
+                      width: "100%",
+                      height: "150px",
+                      resize: "none",
+                      maxWidth: "calc(100% - (2vh))",
+                    }}
                     placeholder="Enter Your Description"
                     value={body}
                   />
 
-                  {comments.map((comment, i) => (
-                    <div
-                      key={comment.id}
-                      style={{
-                        // backgroundColor: "lightblue",
-                        marginBottom: "20px",
-                        gap: "20px",
-                      }}
-                    >
+                  {comments.length > 0 ? (
+                    comments.map((comment, i) => (
                       <div
+                        key={comment.id}
                         style={{
-                          wordWrap: "break-word",
-                          whiteSpace: "normal",
-                          outline: "1px solid black",
+                          marginBottom: "20px",
+                          marginTop: "20px",
+                          gap: "20px",
+                          backgroundColor: "purple",
                         }}
                       >
-                        <InputLabel
-                          htmlFor="description"
-                          style={{ textAlign: "left" }}
+                        <div
+                          style={{
+                            wordWrap: "break-word",
+                            whiteSpace: "normal",
+                            outline: "1px solid black",
+                          }}
                         >
-                          Name
-                        </InputLabel>
-                        <Input
-                          id="title"
-                          placeholder="Name"
-                          value={comment.name}
-                          style={{ marginBottom: "10px" }}
-                          fullWidth
-                          disabled={true}
-                        />
-                        <InputLabel
-                          htmlFor="description"
-                          style={{ textAlign: "left" }}
-                        >
-                          Email
-                        </InputLabel>
-                        <Input
-                          id="title"
-                          placeholder="Email"
-                          value={comment.email}
-                          fullWidth
-                          style={{ marginBottom: "10px" }}
-                          disabled={true}
-                        />
-                        <InputLabel
-                          htmlFor="description"
-                          style={{ textAlign: "left" }}
-                        >
-                          Comment
-                        </InputLabel>
-                        <Input
-                          onChange={(e) =>
-                            handleCommentChange(i, e.target.value)
-                          }
-                          id="comments"
-                          placeholder="Comment"
-                          value={comment?.body || ""}
-                          fullWidth
-                          style={{ marginBottom: "10px" }}
-                        />
-                        {isAdmin && (
-                          <Button
-                            onClick={() => handleDeleteComment(i)}
-                            sx={{ width: 80, height: 30, marginBottom: "10px" }}
-                            variant="contained"
+                          <InputLabel
+                            htmlFor="description"
+                            style={{ textAlign: "left" }}
                           >
-                            Delete
-                          </Button>
-                        )}
+                            Name
+                          </InputLabel>
+                          <Input
+                            id="title"
+                            placeholder="Name"
+                            value={comment.name}
+                            style={{ marginBottom: "10px" }}
+                            fullWidth
+                            disabled={true}
+                          />
+                          <InputLabel
+                            htmlFor="description"
+                            style={{ textAlign: "left" }}
+                          >
+                            Email
+                          </InputLabel>
+                          <Input
+                            id="title"
+                            placeholder="Email"
+                            value={comment.email}
+                            fullWidth
+                            style={{ marginBottom: "10px" }}
+                            disabled={true}
+                          />
+                          <InputLabel
+                            htmlFor="description"
+                            style={{ textAlign: "left" }}
+                          >
+                            Comment
+                          </InputLabel>
+                          {/* <Input
+                            onChange={(e) =>
+                              handleCommentChange(i, e.target.value)
+                            }
+                            id="comments"
+                            placeholder="Comment"
+                            value={comment?.body || ""}
+                            fullWidth
+                            style={{ marginBottom: "10px" }}
+                          /> */}
+
+                          <TextareaAutosize
+                            onChange={(e) =>
+                              handleCommentChange(i, e.target.value)
+                            }
+                            id="comments"
+                            placeholder="Comment"
+                            value={comment?.body || ""}
+                            fullWidth
+                            style={{
+                              width: "100%",
+                              height: "150px",
+                              resize: "none",
+                              maxWidth: "calc(100% - (2vh))",
+                              marginBottom: "10px",
+                            }}
+                          />
+                          {isAdmin && (
+                            <Button
+                              onClick={() => handleDeleteComment(i)}
+                              sx={{
+                                width: 80,
+                                height: 30,
+                                marginBottom: "10px",
+                              }}
+                              variant="contained"
+                            >
+                              Delete
+                            </Button>
+                          )}
+                        </div>
                       </div>
-                    </div>
-                  ))}
+                    ))
+                  ) : (
+                    <>
+                      <InputLabel
+                        htmlFor="description"
+                        style={{ textAlign: "left" }}
+                      >
+                        Comments
+                      </InputLabel>
+                      <p>No comments available</p>
+                    </>
+                  )}
                 </div>
                 <Button
                   onClick={handleNewComment}
