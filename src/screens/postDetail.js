@@ -82,7 +82,7 @@ const PostDetail = () => {
         }}
       >
         <div className="header-section">
-          <Typography variant="h5" component="div">
+          <Typography variant="h5" component="div" sx={{ fontWeight: 700 }}>
             {detail?.title}
           </Typography>
           <div className="moreActionGrp">
@@ -112,50 +112,31 @@ const PostDetail = () => {
           </div>
         </div>
 
-        {/* {showMoreAction && <MoreActionList id={id} />} */}
-
         <div className="post-detail-content">
           <Typography variant="body1" component="div">
             {detail?.body}
           </Typography>
 
           <div className="comments-section">
-            <Typography variant="h6" component="div">
+            <Typography variant="h6" component="div" sx={{ fontWeight: 700 }}>
               Comments
             </Typography>
             <div className="comments-list">
               {commentList.map((comment, idx) => (
                 <div key={comment.id} className="comment-item">
-                  <div
-                    style={{
-                      display: "flex",
-                      flexDirection: "column",
-                      alignItems: "flex-start",
-                      justifyContent: "flex-start",
-                      width: "30%",
-                    }}
-                  >
-                    <div
-                      style={{
-                        display: "flex",
-                        flexDirection: "row",
-                        gap: "10px",
-                        alignItems: "center",
-                        justifyContent: "center",
-                      }}
-                    >
+                  <div className="comment-item1">
+                    <div className="comment-item2">
                       <Avatar
                         sx={{
                           backgroundColor: "rgba(0, 0, 0, 0.5)",
                         }}
                       ></Avatar>
-                      <div
-                        style={{
-                          wordWrap: "break-word",
-                          whiteSpace: "normal",
-                        }}
-                      >
-                        <Typography variant="subtitle" component="div">
+                      <div className="user-detail">
+                        <Typography
+                          variant="subtitle"
+                          component="div"
+                          sx={{ fontWeight: 500 }}
+                        >
                           {comment.name}
                         </Typography>
 
@@ -175,7 +156,7 @@ const PostDetail = () => {
                   <Typography
                     variant="body2"
                     component="div"
-                    style={{ width: "70%" }}
+                    sx={{ paddingTop: "5px" }}
                   >
                     {comment.body}
                   </Typography>

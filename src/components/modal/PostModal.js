@@ -1,4 +1,5 @@
 import {
+  Avatar,
   Box,
   Button,
   Card,
@@ -93,10 +94,12 @@ const PostModal = ({
           <div className="modal-container">
             <Typography
               sx={{
-                fontSize: 24,
+                fontSize: 32,
                 marginBottom: "20px",
                 textAlign: "left",
                 color: "maroon",
+                fontFamily: "Poppins, sans-serif",
+                fontWeight: "bold",
               }}
               variant="h6"
             >
@@ -127,12 +130,24 @@ const PostModal = ({
                   padding: "20px",
                 }}
               >
-                <div style={{ textAlign: "left", marginBottom: "20px" }}>
+                <div
+                  style={{
+                    textAlign: "left",
+                    marginBottom: "20px",
+                    width: "100%",
+                  }}
+                >
                   <Input
                     onChange={(e) => setTitle(e.target.value)}
                     id="title"
                     placeholder="Title"
                     value={title}
+                    sx={{
+                      "& .MuiInputBase-input::placeholder": {
+                        color: "black",
+                      },
+                      width: "100%",
+                    }}
                   />
                 </div>
 
@@ -153,7 +168,6 @@ const PostModal = ({
                     id="description"
                     style={{
                       width: "100%",
-                      height: "150px",
                       resize: "none",
                       maxWidth: "calc(100% - (2vh))",
                     }}
@@ -161,98 +175,65 @@ const PostModal = ({
                     value={body}
                   />
 
+                  <Typography
+                    variant="h6"
+                    component="div"
+                    sx={{ paddingTop: "10px" }}
+                  >
+                    Comments
+                  </Typography>
                   {comments.length > 0 ? (
                     comments.map((comment, i) => (
-                      <div
-                        key={comment.id}
-                        style={{
-                          marginBottom: "20px",
-                          marginTop: "20px",
-                          gap: "20px",
-                          backgroundColor: "purple",
-                        }}
-                      >
-                        <div
-                          style={{
-                            wordWrap: "break-word",
-                            whiteSpace: "normal",
-                            outline: "1px solid black",
-                          }}
-                        >
-                          <InputLabel
-                            htmlFor="description"
-                            style={{ textAlign: "left" }}
-                          >
-                            Name
-                          </InputLabel>
-                          <Input
-                            id="title"
-                            placeholder="Name"
-                            value={comment.name}
-                            style={{ marginBottom: "10px" }}
-                            fullWidth
-                            disabled={true}
-                          />
-                          <InputLabel
-                            htmlFor="description"
-                            style={{ textAlign: "left" }}
-                          >
-                            Email
-                          </InputLabel>
-                          <Input
-                            id="title"
-                            placeholder="Email"
-                            value={comment.email}
-                            fullWidth
-                            style={{ marginBottom: "10px" }}
-                            disabled={true}
-                          />
-                          <InputLabel
-                            htmlFor="description"
-                            style={{ textAlign: "left" }}
-                          >
-                            Comment
-                          </InputLabel>
-                          {/* <Input
-                            onChange={(e) =>
-                              handleCommentChange(i, e.target.value)
-                            }
-                            id="comments"
-                            placeholder="Comment"
-                            value={comment?.body || ""}
-                            fullWidth
-                            style={{ marginBottom: "10px" }}
-                          /> */}
+                      <div className="comments-section">
+                        <div className="comments-list">
+                          {commentList.map((comment, idx) => (
+                            <div key={comment.id} className="comment-item">
+                              <div className="comment-item1">
+                                <div className="comment-item2">
+                                  <Avatar
+                                    sx={{
+                                      backgroundColor: "rgba(0, 0, 0, 0.5)",
+                                    }}
+                                  ></Avatar>
+                                  <div className="user-detail">
+                                    <Typography
+                                      variant="subtitle"
+                                      component="div"
+                                    >
+                                      {comment.name}
+                                    </Typography>
 
-                          <TextareaAutosize
-                            onChange={(e) =>
-                              handleCommentChange(i, e.target.value)
-                            }
-                            id="comments"
-                            placeholder="Comment"
-                            value={comment?.body || ""}
-                            fullWidth
-                            style={{
-                              width: "100%",
-                              height: "150px",
-                              resize: "none",
-                              maxWidth: "calc(100% - (2vh))",
-                              marginBottom: "10px",
-                            }}
-                          />
-                          {isAdmin && (
-                            <Button
-                              onClick={() => handleDeleteComment(i)}
-                              sx={{
-                                width: 80,
-                                height: 30,
-                                marginBottom: "10px",
-                              }}
-                              variant="contained"
-                            >
-                              Delete
-                            </Button>
-                          )}
+                                    <Typography
+                                      variant="caption"
+                                      component="div"
+                                      style={{
+                                        fontStyle: "italic",
+                                      }}
+                                    >
+                                      {comment.email}
+                                    </Typography>
+                                  </div>
+                                </div>
+                              </div>
+
+                              <TextareaAutosize
+                                onChange={(e) =>
+                                  handleCommentChange(i, e.target.value)
+                                }
+                                id="comments"
+                                placeholder="Comment"
+                                value={comment?.body || ""}
+                                fullWidth
+                                style={{
+                                  resize: "none",
+                                  maxWidth: "calc(100% - (2vh))",
+                                  marginBottom: "10px",
+                                  marginTop: "10px",
+                                  paddingLeft: "10px",
+                                }}
+                              />
+                            </div>
+                          ))}
                         </div>
                       </div>
                     ))

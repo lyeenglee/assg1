@@ -45,7 +45,6 @@ const NavBar = () => {
             {POST_LIST}
           </Typography>
 
-          {console.log("user", user)}
           {Object.keys(user).length === 0 ? (
             <Button color="inherit" onClick={onClickLogin}>
               {LOGIN}

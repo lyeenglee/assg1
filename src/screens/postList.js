@@ -10,7 +10,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { addPost, resetPost } from "../slices/postSlice";
 import InsertPhotoIcon from "@mui/icons-material/InsertPhoto";
 import { useNavigate } from "react-router-dom";
-import imgList from "../components/mockData/index.json";
+
 const PostList = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -19,7 +19,7 @@ const PostList = () => {
   const [isModalOpen, setIsModalOpen] = React.useState(false);
   const handleCloseModal = () => setIsModalOpen(false);
   const handleOpenModal = () => setIsModalOpen(true);
-  console.log("imgList: ", imgList);
+
   const handleAddPost = (post) => {
     dispatch(addPost([{ ...post, id: postList.length + 1 }]));
     handleCloseModal();
@@ -54,14 +54,7 @@ const PostList = () => {
         src={`/assets/img/Gym${randomIndex}.jpg`}
         alt="Random"
         loading="lazy"
-        style={{
-          width: "280px",
-          height: "280px",
-          color: "gray",
-          margin: "15px",
-          borderRadius: "15px",
-          // opacity: 0.8,
-        }}
+        className="post-img"
       />
     );
   };

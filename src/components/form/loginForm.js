@@ -54,10 +54,11 @@ const LoginForm = () => {
         value={password}
         onChange={(e) => setPassword(e.target.value)}
       />
+
       <Button
-        variant="contained"
-        className="login-text-input login-btn"
         onClick={handleSignIn}
+        sx={{ width: "100%", bgcolor: "black" }}
+        variant="contained"
       >
         {SIGN_IN}
       </Button>
