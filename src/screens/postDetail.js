@@ -67,7 +67,8 @@ const PostDetail = () => {
           marginRight: "104px",
           display: "flex",
           flexDirection: "column",
-          filter: "drop-shadow(0px 4px 4px rgba(5, 14, 14, 0.25))",
+          boxShadow: "0px 4px 4px rgba(5, 14, 14, 0.25)",
+          minWidth: "800px",
           boxSizing: "border-box",
         }}
       >

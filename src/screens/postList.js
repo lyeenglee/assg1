@@ -10,7 +10,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { addPost, resetPost } from "../slices/postSlice";
 import InsertPhotoIcon from "@mui/icons-material/InsertPhoto";
 import { useNavigate } from "react-router-dom";
-
+import imgList from "../../src/components/mockData/index.json";
 const PostList = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -19,7 +19,7 @@ const PostList = () => {
   const [isModalOpen, setIsModalOpen] = React.useState(false);
   const handleCloseModal = () => setIsModalOpen(false);
   const handleOpenModal = () => setIsModalOpen(true);
-
+  console.log("imgList: ", imgList);
   const handleAddPost = (post) => {
     dispatch(addPost([post]));
     handleCloseModal();
@@ -45,6 +45,26 @@ const PostList = () => {
     getPostData();
   }, [dispatch, getPostData, postList.length]);
 
+  const getRandomImg = (idx) => {
+    const getRandomIndex = () => Math.floor(Math.random() * 6) + 1;
+    const randomIndex = getRandomIndex();
+
+    return (
+      <img
+        src={`/assets/img/Gym${randomIndex}.jpg`}
+        alt="Random"
+        loading="lazy"
+        style={{
+          width: "280px",
+          height: "280px",
+          color: "gray",
+          margin: "15px",
+          borderRadius: "15px",
+          // opacity: 0.8,
+        }}
+      />
+    );
+  };
   return (
     <div className="post-list">
       <NavBar />
@@ -63,39 +83,17 @@ const PostList = () => {
             sx={{
               alignItems: "center",
               display: "flex",
-              margin: "10px",
+              margin: "20px",
               backgroundColor: "rgba(203, 213, 225, 0.2)",
+              boxShadow: "0px 4px 4px rgba(5, 14, 14, 0.25)",
+              boxSizing: "border-box",
             }}
             key={item.id}
             onClick={() => {
               navigate(`/postDetail/${item.id}`);
             }}
           >
-            {item.img ? (
-              <img
-                srcSet={`${item.img}?w=248&fit=crop&auto=format&dpr=3 2x`}
-                src={`${item.img}?w=248&fit=crop&auto=format`}
-                alt={item.title}
-                loading="lazy"
-                style={{
-                  width: "280px",
-                  height: "280px",
-                  color: "gray",
-                  opacity: 0.2,
-                }}
-              />
-            ) : (
-              <InsertPhotoIcon
-                sx={{
-                  color: "gray",
-                  opacity: 0.2,
-                  width: "280px",
-                  height: "280px",
-                  borderRadius: "20px",
-                  zIndex: 4,
-                }}
-              />
-            )}
+            {getRandomImg(idx)}
             <ImageListItemBar
               title={item.title}
               position="below"

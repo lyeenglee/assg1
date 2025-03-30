@@ -152,9 +152,10 @@ const PostModal = ({ isModalOpen, handleCloseModal, handleAddPost }) => {
                     textAlign: "left",
                     marginBottom: "20px",
                     overflowY: "scroll",
-                    height: "250px",
-                    minHeight: "fit-content",
-                    maxHeight: "250px",
+                    //  minHeight: "200px",
+                    minHeight: "calc(10vh + 100px)",
+                    maxHeight: "calc(-200px + 60vh)",
+                    flex: 1,
                   }}
                 >
                   <InputLabel htmlFor="description">Description</InputLabel>
@@ -187,7 +188,6 @@ const PostModal = ({ isModalOpen, handleCloseModal, handleAddPost }) => {
                           Name
                         </InputLabel>
                         <Input
-                          // onChange={(e) => setTitle(e.target.value)}
                           id="title"
                           placeholder="Name"
                           value={comment.name}
@@ -201,7 +201,6 @@ const PostModal = ({ isModalOpen, handleCloseModal, handleAddPost }) => {
                           Email
                         </InputLabel>
                         <Input
-                          // onChange={(e) => setTitle(e.target.value)}
                           id="title"
                           placeholder="Email"
                           value={comment.email}
@@ -215,7 +214,6 @@ const PostModal = ({ isModalOpen, handleCloseModal, handleAddPost }) => {
                           Comment
                         </InputLabel>
                         <Input
-                          // onChange={(e) => setTitle(e.target.value)}
                           id="title"
                           placeholder="Comment"
                           value={comment.body}
