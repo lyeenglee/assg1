@@ -208,25 +208,30 @@ const PostModal = ({
                         <div key={comment.id} className="comment-item">
                           <div className="comment-item1">
                             <div className="comment-item2">
-                              <Avatar
-                                sx={{
-                                  backgroundColor: "rgba(0, 0, 0, 0.5)",
-                                }}
-                              ></Avatar>
-                              <div className="user-detail">
-                                <Typography variant="subtitle" component="div">
-                                  {comment.name}
-                                </Typography>
-
-                                <Typography
-                                  variant="caption"
-                                  component="div"
-                                  style={{
-                                    fontStyle: "italic",
+                              <div className="avatar-email">
+                                <Avatar
+                                  sx={{
+                                    backgroundColor: "rgba(0, 0, 0, 0.5)",
                                   }}
-                                >
-                                  {comment.email}
-                                </Typography>
+                                ></Avatar>
+                                <div className="user-detail">
+                                  <Typography
+                                    variant="subtitle"
+                                    component="div"
+                                  >
+                                    {comment.name}
+                                  </Typography>
+
+                                  <Typography
+                                    variant="caption"
+                                    component="div"
+                                    style={{
+                                      fontStyle: "italic",
+                                    }}
+                                  >
+                                    {comment.email}
+                                  </Typography>
+                                </div>
                               </div>
                               {Object.keys(user).length !== 0 && (
                                 <Button
@@ -254,6 +259,7 @@ const PostModal = ({
                               marginTop: "10px",
                               paddingLeft: "10px",
                             }}
+                            disabled={user?.email !== comment?.email}
                           />
                         </div>
                       </>

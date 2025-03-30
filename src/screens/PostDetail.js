@@ -133,7 +133,7 @@ const PostDetail = () => {
               {commentList.map((comment, idx) => (
                 <div key={comment.id} className="comment-item">
                   <div className="comment-item1">
-                    <div className="comment-item2">
+                    <div className="post-detail-item2">
                       <Avatar
                         sx={{
                           backgroundColor: "rgba(0, 0, 0, 0.5)",
