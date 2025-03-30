@@ -7,7 +7,7 @@ import {
   Routes,
   Navigate,
 } from "react-router-dom";
-import PostList from "./screens/postList";
+import PostList from "./screens/PostList";
 
 function App() {
   return (

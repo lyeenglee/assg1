@@ -3,14 +3,14 @@ import ImageList from "@mui/material/ImageList";
 import ImageListItem from "@mui/material/ImageListItem";
 import ImageListItemBar from "@mui/material/ImageListItemBar";
 import NavBar from "../components/topNavBar/NavBar";
-import { Fab, Pagination } from "@mui/material";
+import { Fab } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
 import PostModal from "../components/modal/PostModal";
 import { useDispatch, useSelector } from "react-redux";
 import { addPost, resetPost } from "../slices/postSlice";
 import InsertPhotoIcon from "@mui/icons-material/InsertPhoto";
 import { useNavigate } from "react-router-dom";
-import imgList from "../../src/components/mockData/index.json";
+import imgList from "../components/mockData/index.json";
 const PostList = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -102,7 +102,7 @@ const PostList = () => {
           </ImageListItem>
         ))}
       </ImageList>
-      <Pagination className="pagination" count={10} />
+
       <Fab
         sx={{
           position: "fixed",

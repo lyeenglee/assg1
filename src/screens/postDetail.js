@@ -107,10 +107,12 @@ const PostDetail = () => {
                 navigate("/postList");
               }}
             />
+
+            {showMoreAction && <MoreActionList id={id} />}
           </div>
         </div>
 
-        {showMoreAction && <MoreActionList id={id} />}
+        {/* {showMoreAction && <MoreActionList id={id} />} */}
 
         <div className="post-detail-content">
           <Typography variant="body1" component="div">

@@ -72,7 +72,7 @@
   justify-content: end;
   gap: 10px;
   align-items: center;
-  top: 30px;
+  /* top: 80px; */
   height: fit-content;
 }
 
@@ -127,9 +127,9 @@
   justify-content: center;
 }
 
-.pagination {
+/* .pagination {
   margin: 25px;
-}
+} */
 
 .fab-style {
   position: "absolute";
