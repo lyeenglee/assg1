@@ -43,11 +43,6 @@ const PostDetail = () => {
     setShowMoreAction(false);
   }, [postList]);
 
-  React.useEffect(() => {
-    setDetail(postList.find((post) => post.id === Number(id)));
-    setShowMoreAction(false);
-  }, [postList]);
-
   return (
     <div className="post-detail-container">
       <Card
@@ -64,9 +59,22 @@ const PostDetail = () => {
           backgroundColor: "rgba(203, 213, 225, 0.2)",
         }}
       >
-        <InsertPhotoIcon
-          sx={{ width: "100%", height: "100%", color: "gray", opacity: 0.2 }}
-        />
+        {detail?.img ? (
+          <img
+            src={detail?.img}
+            alt="Random"
+            loading="lazy"
+            style={{
+              width: "100%",
+              height: "100%",
+              borderRadius: "15px",
+            }}
+          />
+        ) : (
+          <InsertPhotoIcon
+            sx={{ width: "100%", height: "100%", color: "gray", opacity: 0.2 }}
+          />
+        )}
       </Card>
       <Card
         sx={{

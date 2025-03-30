@@ -1,6 +1,6 @@
 import { Alert, Button, Snackbar, TextField } from "@mui/material";
 import { useDispatch } from "react-redux";
-import { addUser, setIsAdmin } from "../../slices/userSlice";
+import { addUser } from "../../slices/userSlice";
 import { useNavigate } from "react-router-dom";
 import React, { useState } from "react";
 import { SIGN_IN } from "../../constants/string";
@@ -25,7 +25,6 @@ const LoginForm = () => {
 
     if (foundUser) {
       dispatch(addUser({ username, email, password }));
-      dispatch(setIsAdmin(foundUser.isAdmin));
       navigate("/postList");
     } else {
       setOpen(true);

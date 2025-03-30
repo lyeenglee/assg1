@@ -10,8 +10,9 @@ import {
   Typography,
 } from "@mui/material";
 import InsertPhotoIcon from "@mui/icons-material/InsertPhoto";
-import React from "react";
+import React, { useEffect } from "react";
 import { useSelector } from "react-redux";
+import DeleteIcon from "@mui/icons-material/Delete";
 
 const PostModal = ({
   header,
@@ -20,9 +21,10 @@ const PostModal = ({
   handleSubmit,
   postId,
 }) => {
-  const { user, isAdmin } = useSelector((state) => state.user);
+  const { user } = useSelector((state) => state.user);
   const { postList, commentList } = useSelector((state) => state.post);
   const post = postList.find((post) => post.id === Number(postId));
+  const showComment = header !== "Add Post";
 
   const [title, setTitle] = React.useState(post ? post.title : "");
   const [body, setBody] = React.useState(post ? post.body : "");
@@ -65,6 +67,12 @@ const PostModal = ({
       return newComments;
     });
   };
+
+  useEffect(() => {
+    if (!postId) {
+      setComments([]);
+    }
+  }, [postId]);
 
   return (
     <Modal
@@ -115,9 +123,21 @@ const PostModal = ({
                   boxSizing: "border-box",
                 }}
               >
-                <InsertPhotoIcon
-                  sx={{ width: "100%", height: "100%", color: "gray" }}
-                />
+                {post?.img ? (
+                  <img
+                    src={post?.img}
+                    alt="Random"
+                    loading="lazy"
+                    style={{
+                      width: "100%",
+                      height: "100%",
+                    }}
+                  />
+                ) : (
+                  <InsertPhotoIcon
+                    sx={{ width: "100%", height: "100%", color: "gray" }}
+                  />
+                )}
               </Card>
               <Card
                 style={{
@@ -156,8 +176,8 @@ const PostModal = ({
                     width: "100%",
                     textAlign: "left",
                     marginBottom: "20px",
-                    overflowY: "auto",
-                    minHeight: "calc(100% - (18vh))",
+                    overflowY: "scroll",
+                    minHeight: "calc(10vh + 100px)",
                     maxHeight: "calc(-200px + 60vh)",
                     flex: 1,
                   }}
@@ -184,58 +204,59 @@ const PostModal = ({
                   </Typography>
                   {comments.length > 0 ? (
                     comments.map((comment, i) => (
-                      <div className="comments-section">
-                        <div className="comments-list">
-                          {commentList.map((comment, idx) => (
-                            <div key={comment.id} className="comment-item">
-                              <div className="comment-item1">
-                                <div className="comment-item2">
-                                  <Avatar
-                                    sx={{
-                                      backgroundColor: "rgba(0, 0, 0, 0.5)",
-                                    }}
-                                  ></Avatar>
-                                  <div className="user-detail">
-                                    <Typography
-                                      variant="subtitle"
-                                      component="div"
-                                    >
-                                      {comment.name}
-                                    </Typography>
-
-                                    <Typography
-                                      variant="caption"
-                                      component="div"
-                                      style={{
-                                        fontStyle: "italic",
-                                      }}
-                                    >
-                                      {comment.email}
-                                    </Typography>
-                                  </div>
-                                </div>
-                              </div>
-
-                              <TextareaAutosize
-                                onChange={(e) =>
-                                  handleCommentChange(i, e.target.value)
-                                }
-                                id="comments"
-                                placeholder="Comment"
-                                value={comment?.body || ""}
-                                fullWidth
-                                style={{
-                                  resize: "none",
-                                  maxWidth: "calc(100% - (2vh))",
-                                  marginBottom: "10px",
-                                  marginTop: "10px",
-                                  paddingLeft: "10px",
+                      <>
+                        <div key={comment.id} className="comment-item">
+                          <div className="comment-item1">
+                            <div className="comment-item2">
+                              <Avatar
+                                sx={{
+                                  backgroundColor: "rgba(0, 0, 0, 0.5)",
                                 }}
-                              />
+                              ></Avatar>
+                              <div className="user-detail">
+                                <Typography variant="subtitle" component="div">
+                                  {comment.name}
+                                </Typography>
+
+                                <Typography
+                                  variant="caption"
+                                  component="div"
+                                  style={{
+                                    fontStyle: "italic",
+                                  }}
+                                >
+                                  {comment.email}
+                                </Typography>
+                              </div>
+                              {Object.keys(user).length !== 0 && (
+                                <Button
+                                  onClick={() => handleDeleteComment(i)}
+                                  variant="transparent"
+                                >
+                                  <DeleteIcon />
+                                </Button>
+                              )}
                             </div>
-                          ))}
+                          </div>
+
+                          <TextareaAutosize
+                            onChange={(e) =>
+                              handleCommentChange(i, e.target.value)
+                            }
+                            id="comments"
+                            placeholder="Comment"
+                            value={comment?.body || ""}
+                            fullWidth
+                            style={{
+                              resize: "none",
+                              maxWidth: "calc(100% - (2vh))",
+                              marginBottom: "10px",
+                              marginTop: "10px",
+                              paddingLeft: "10px",
+                            }}
+                          />
                         </div>
-                      </div>
+                      </>
                     ))
                   ) : (
                     <>
@@ -249,13 +270,15 @@ const PostModal = ({
                     </>
                   )}
                 </div>
-                <Button
-                  onClick={handleNewComment}
-                  sx={{ width: 150, height: 30 }}
-                  variant="contained"
-                >
-                  New Comment
-                </Button>
+                {showComment && (
+                  <Button
+                    onClick={handleNewComment}
+                    sx={{ width: 150, height: 30 }}
+                    variant="contained"
+                  >
+                    New Comment
+                  </Button>
+                )}
               </Card>
             </div>
             <div className="modal-buttons">
@@ -270,6 +293,7 @@ const PostModal = ({
                 onClick={onClickPost}
                 sx={{ width: 100, bgcolor: "black" }}
                 variant="contained"
+                disabled={title.trim() === "" || body.trim() === ""}
               >
                 Post
               </Button>

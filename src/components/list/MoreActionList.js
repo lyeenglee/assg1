@@ -5,7 +5,6 @@ import {
   ListItemButton,
   ListItemIcon,
   ListItemText,
-  Menu,
 } from "@mui/material";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
@@ -23,7 +22,6 @@ import PostModal from "../modal/PostModal";
 const MoreActionList = ({ id }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-
   const [isModalOpen, setIsModalOpen] = React.useState(false);
   const handleCloseModal = () => setIsModalOpen(false);
   const handleOpenModal = () => setIsModalOpen(true);
@@ -82,7 +80,6 @@ const MoreActionList = ({ id }) => {
           </List>
         </nav>
       </Box>
-
       <PostModal
         header={"Edit Post"}
         isModalOpen={isModalOpen}

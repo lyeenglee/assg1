@@ -2,7 +2,6 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   user: {},
-  isAdmin: false,
 };
 
 const userSlice = createSlice({
@@ -15,12 +14,9 @@ const userSlice = createSlice({
     resetUser: (state) => {
       state.user = {};
     },
-    setIsAdmin: (state, action) => {
-      state.isAdmin = action.payload;
-    },
   },
 });
 
-export const { addUser, resetUser, setIsAdmin } = userSlice.actions;
+export const { addUser, resetUser } = userSlice.actions;
 
 export default userSlice.reducer;
